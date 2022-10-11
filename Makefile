@@ -2,12 +2,15 @@ CFLAGS = -std=c++17 -O2
 LDFLAGS = -lglfw -lvulkan -ldl -lpthread -lX11 -lXxf86vm -lXrandr -lXi
 
 HelloTriangle: main.cpp
-	g++ $(CFLAGS) -o HelloTriangle main.cpp $(LDFLAGS)
+	g++ $(CFLAGS) -o bin/HelloTriangle main.cpp $(LDFLAGS)
 
-.PHONY: test clean
+.PHONY: test clean shaders
 
-test: HelloTriangle
-	./HelloTriangle
+shaders: shaders/compile.sh
+	shaders/compile.sh
+
+test: HelloTriangle shaders
+	bin/HelloTriangle
 
 clean:
-	rm -f HelloTriangle
+	rm -f bin/HelloTriangle
